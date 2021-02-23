@@ -1,0 +1,15 @@
+﻿{
+  "totalMods" : 2,
+  "0" : {
+   "name" : "BepInEx",
+   "tag" : "",
+   "gitPath" : "BepInEx/BepInEx",
+   "releaseId" : 1
+  },
+  "1" : {
+   "name" : "Gorilla Cosmetics",
+   "tag" : "",
+   "gitPath" : "legoandmars/GorillaCosmetics",
+   "releaseId" : 0
+  }
+}
