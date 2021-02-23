@@ -254,8 +254,8 @@ namespace BeatSaberModInstaller
                         {
                             textBoxDirectory.Text = folderDialog.SelectedPath;
                             InstallDirectory = folderDialog.SelectedPath;
-                            FormSelectPlatform selector = new FormSelectPlatform(this);
-                            selector.ShowDialog();
+                            //FormSelectPlatform selector = new FormSelectPlatform(this);
+                            //selector.ShowDialog();
                             found = true;
                         }
                         else
