@@ -1,4 +1,4 @@
-# BeatSaberModInstaller
+# Monke Mod Manager
 ![Preview](https://i.imgur.com/SdGqxl3.png)
 
 This program will install custom mods into Gorilla Tag automatically, and can be re-run in order to update the mods
