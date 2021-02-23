@@ -140,19 +140,22 @@ namespace BeatSaberModInstaller
         }
         private void buttonFolderBrowser_Click(object sender, EventArgs e)
         {
-            using (var folderDialog = new FolderBrowserDialog())
+            using (var fileDialog = new OpenFileDialog())
             {
-                if (folderDialog.ShowDialog() == DialogResult.OK)
+                fileDialog.FileName = "Gorilla Tag.exe";
+                fileDialog.Filter = "Exe Files (.exe)|*.exe|All Files (*.*)|*.*";
+                fileDialog.FilterIndex = 1;
+                if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string path = folderDialog.SelectedPath;
-                    if (File.Exists(path + @"\Gorilla Tag.exe"))
+                    string path = fileDialog.FileName;
+                    if (Path.GetFileName(path).Equals("Gorilla Tag.exe"))
                     {
-                        InstallDirectory = folderDialog.SelectedPath;
-                        textBoxDirectory.Text = folderDialog.SelectedPath;
+                        InstallDirectory = Path.GetDirectoryName(path);
+                        textBoxDirectory.Text = InstallDirectory;
                     }
                     else
                     {
-                        MessageBox.Show("The directory you selected doesn't contain Gorilla Tag.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("That's not Gorilla Tag.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
@@ -245,24 +248,24 @@ namespace BeatSaberModInstaller
             bool found = false;
             while (found == false)
             {
-                using (var folderDialog = new FolderBrowserDialog())
+                using (var fileDialog = new OpenFileDialog())
                 {
-                    if (folderDialog.ShowDialog() == DialogResult.OK)
+                    fileDialog.FileName = "Gorilla Tag.exe";
+                    fileDialog.Filter = "Exe Files (.exe)|*.exe|All Files (*.*)|*.*";
+                    fileDialog.FilterIndex = 1;
+                    if (fileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        string path = folderDialog.SelectedPath;
-                        if (File.Exists(path + @"\Gorilla Tag.exe"))
+                        string path = fileDialog.FileName;
+                        if (Path.GetFileName(path).Equals("Gorilla Tag.exe"))
                         {
-                            textBoxDirectory.Text = folderDialog.SelectedPath;
-                            InstallDirectory = folderDialog.SelectedPath;
-                            //FormSelectPlatform selector = new FormSelectPlatform(this);
-                            //selector.ShowDialog();
+                            InstallDirectory = Path.GetDirectoryName(path);
+                            textBoxDirectory.Text = InstallDirectory;
                             found = true;
                         }
                         else
                         {
-                            MessageBox.Show("The directory you selected doesn't contain Gorilla Tag.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("That's not Gorilla Tag.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-
                     }
                     else
                     {
