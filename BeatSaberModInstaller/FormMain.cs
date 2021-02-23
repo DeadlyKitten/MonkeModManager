@@ -15,7 +15,7 @@ namespace BeatSaberModInstaller
     public partial class FormMain : Form
     {
         public const string BaseEndpoint = "https://api.github.com/repos/";
-        public const Int16 CurrentVersion = 8;
+        public const Int16 CurrentVersion = 1;
         public List<ReleaseInfo> releases;
         public string InstallDirectory = @"";
         public bool isSteam = true;
@@ -39,10 +39,10 @@ namespace BeatSaberModInstaller
         private void LoadReleases()
         {
             var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/mods.json"));
-            int totalMods = decoded["totalMods"];
-            for (int i = 0; i < totalMods; i++)
+            var allMods = decoded["mods"].AsArray;
+            for (int i = 0; i < allMods.Count; i++)
             {
-                JSONNode current = decoded[i.ToString()];
+                JSONNode current = allMods[i];
                 ReleaseInfo release = new ReleaseInfo(null, null, null, true, null, current["gitPath"],
                     current["releaseId"], current["tag"]);
                 release = UpdateReleaseInfo(release.ReleaseId, release.GitPath, release.Tag);
@@ -162,7 +162,7 @@ namespace BeatSaberModInstaller
         private void listViewMods_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             ReleaseInfo release = (ReleaseInfo)e.Item.Tag;
-            if (release.Name.Equals("BepInEx")) { e.Item.Checked = true; };
+            if (release.Name.Contains("BepInEx")) { e.Item.Checked = true; };
             release.Install = e.Item.Checked;
         }
          private void listViewMods_DoubleClick(object sender, EventArgs e)
@@ -207,7 +207,7 @@ namespace BeatSaberModInstaller
                 {
                     MessageBox.Show("Failed to update version info, please check your internet connection", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                Process.GetCurrentProcess().Kill();
+                //Process.GetCurrentProcess().Kill();
                 return null;
             }
         }
@@ -274,8 +274,7 @@ namespace BeatSaberModInstaller
         private void CheckVersion()
         {
             UpdateStatus("Checking for updates...");
-            return;
-            Int16 version = Convert.ToInt16(DownloadSite("https://raw.githubusercontent.com/Umbranoxio/BeatSaberModInstaller/master/update.txt"));
+            Int16 version = Convert.ToInt16(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/update.txt"));
             if (version > CurrentVersion)
             {
                 this.Invoke((MethodInvoker)(() =>
@@ -360,7 +359,7 @@ namespace BeatSaberModInstaller
         }
         private void CheckDefaultMod(ReleaseInfo release, ListViewItem item)
         {
-            if (release.Name == "BepInEx")
+            if (release.Name.Contains("BepInEx"))
             {
                 item.Checked = true;
             }
