@@ -6,11 +6,11 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Threading;
-using BeatSaberModInstaller.Internals;
+using MonkeModManager.Internals;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using BeatSaberModInstaller.Internals.SimpleJSON;
-namespace BeatSaberModInstaller
+using MonkeModManager.Internals.SimpleJSON;
+namespace MonkeModManager
 {
     public partial class FormMain : Form
     {

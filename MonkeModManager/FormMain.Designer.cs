@@ -1,4 +1,4 @@
-﻿namespace BeatSaberModInstaller
+﻿namespace MonkeModManager
 {
     partial class FormMain
     {

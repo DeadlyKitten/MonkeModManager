@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BeatSaberModInstaller.Internals
+namespace MonkeModManager.Internals
 {
     public class ReleaseInfo
     {

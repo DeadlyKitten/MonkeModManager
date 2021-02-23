@@ -6,7 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 
-namespace BeatSaberModInstaller.Internals
+namespace MonkeModManager.Internals
 {
     /// <summary>
     /// Unzip helper class.

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BeatSaberModInstaller
+namespace MonkeModManager
 {
     public partial class FormSelectPlatform : Form
     {
