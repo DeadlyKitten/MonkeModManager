@@ -42,6 +42,7 @@
             this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonModInfo = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageCore.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
@@ -142,6 +143,7 @@
             this.listViewMods.UseCompatibleStateImageBehavior = false;
             this.listViewMods.View = System.Windows.Forms.View.Details;
             this.listViewMods.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewMods_ItemChecked);
+            this.listViewMods.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewMods_ItemSelectionChanged);
             this.listViewMods.DoubleClick += new System.EventHandler(this.listViewMods_DoubleClick);
             // 
             // columnHeaderName
@@ -168,11 +170,24 @@
             this.viewInfoToolStripMenuItem.Text = "View Info";
             this.viewInfoToolStripMenuItem.Click += new System.EventHandler(this.viewInfoToolStripMenuItem_Click);
             // 
+            // buttonModInfo
+            // 
+            this.buttonModInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonModInfo.Enabled = false;
+            this.buttonModInfo.Location = new System.Drawing.Point(322, 341);
+            this.buttonModInfo.Name = "buttonModInfo";
+            this.buttonModInfo.Size = new System.Drawing.Size(112, 23);
+            this.buttonModInfo.TabIndex = 9;
+            this.buttonModInfo.Text = "View Mod Info";
+            this.buttonModInfo.UseVisualStyleBackColor = true;
+            this.buttonModInfo.Click += new System.EventHandler(this.buttonModInfo_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 376);
+            this.Controls.Add(this.buttonModInfo);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.buttonInstall);
@@ -207,6 +222,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderAuthor;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMain;
         private System.Windows.Forms.ToolStripMenuItem viewInfoToolStripMenuItem;
+        private System.Windows.Forms.Button buttonModInfo;
     }
 }
 

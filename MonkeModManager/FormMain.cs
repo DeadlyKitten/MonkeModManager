@@ -172,14 +172,31 @@ namespace MonkeModManager
         {
             OpenLinkFromRelease();
         }
-         private void viewInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buttonModInfo_Click(object sender, EventArgs e)
+        {
+            OpenLinkFromRelease();
+        }
+        private void viewInfoToolStripMenuItem_Click(object sender, EventArgs e)
          {
              OpenLinkFromRelease();
          }
+
+        private void listViewMods_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (listViewMods.SelectedItems.Count > 0)
+            {
+                buttonModInfo.Enabled = true;
+            }
+            else
+            {
+                buttonModInfo.Enabled = false;
+            }
+        }
+
         #endregion
 
         #region Helpers
-        
+
         private CookieContainer PermCookie;
         private string DownloadSite(string URL)
         {
@@ -440,8 +457,10 @@ namespace MonkeModManager
                 }
             }
         }
+
         #endregion
-        
+
+
     }
 
 }
