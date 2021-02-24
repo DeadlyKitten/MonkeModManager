@@ -311,7 +311,7 @@ namespace MonkeModManager
                 this.Invoke((MethodInvoker)(() =>
                 {
                     MessageBox.Show("Your version of the mod installer is outdated! Please download the new one!", "Update available!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Process.Start("https://github.com/DeadlyKitten/MonkeModManager/releases");
+                    Process.Start("https://github.com/DeadlyKitten/MonkeModManager/releases/latest");
                     Process.GetCurrentProcess().Kill();
                     Environment.Exit(0);
                 }));
