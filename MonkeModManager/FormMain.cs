@@ -43,9 +43,8 @@ namespace MonkeModManager
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(null, null, null, true, null, current["gitPath"],
-                    current["releaseId"], current["tag"]);
-                release = UpdateReleaseInfo(release.ReleaseId, release.GitPath, release.Tag);
+                ReleaseInfo release = new ReleaseInfo(current["author"], current["gitPath"], current["releaseId"], current["tag"]);
+                UpdateReleaseInfo(ref release);
                 releases.Add(release);
             }
             //WriteReleasesToDisk();
@@ -80,22 +79,23 @@ namespace MonkeModManager
 
         }
 
-        private ReleaseInfo UpdateReleaseInfo(int downloadId, string release, string tag)
+        private void UpdateReleaseInfo(ref ReleaseInfo release)
         {
-            string releaseFormatted = BaseEndpoint + release + "/releases";
-            var ScoreSaberData = JSON.Parse(DownloadSite(releaseFormatted));
-            var rootNode = ScoreSaberData[0];
-            var tagName = rootNode["tag_name"];
-            var name = rootNode["name"];
-            var assetsNode = rootNode["assets"];
-            var downloadReleaseNode = assetsNode[downloadId];
-            var downloadLink = downloadReleaseNode["browser_download_url"];
-            var uploaderNode = downloadReleaseNode["uploader"];
-            var author = uploaderNode["login"];
-            ReleaseInfo newRelease = new ReleaseInfo(tagName, downloadLink, name, true, author, release, downloadId, tag);
-
             Thread.Sleep(500); //So we don't get rate limited by github
-            return newRelease;
+
+            string releaseFormatted = BaseEndpoint + release.GitPath + "/releases";
+            var rootNode = JSON.Parse(DownloadSite(releaseFormatted))[0];
+            
+            release.Version = rootNode["tag_name"];
+            
+            release.Name = rootNode["name"];
+            
+            var assetsNode = rootNode["assets"];
+            var downloadReleaseNode = assetsNode[release.ReleaseId];
+            release.Link = downloadReleaseNode["browser_download_url"];
+            
+            var uploaderNode = downloadReleaseNode["uploader"];
+            if (release.Author.Equals(String.Empty)) release.Author = uploaderNode["login"];
         }
      
         #endregion

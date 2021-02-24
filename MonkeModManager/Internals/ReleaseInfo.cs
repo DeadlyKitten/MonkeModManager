@@ -14,13 +14,9 @@ namespace MonkeModManager.Internals
         public string GitPath;
         public string Tag;
         public int ReleaseId;
-        public bool Install;
-        public ReleaseInfo(string _version, string _link ,string _name, bool _install, string _author, string _gitPath, int _releaseId, string _tag)
+        public bool Install = true;
+        public ReleaseInfo(string _author, string _gitPath, int _releaseId, string _tag)
         {
-            Version = _version;
-            Link = _link;
-            Name = _name;
-            Install = _install;
             Author = _author;
             GitPath = _gitPath;
             ReleaseId = _releaseId;
