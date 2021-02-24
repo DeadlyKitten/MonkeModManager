@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
@@ -14,16 +13,19 @@ namespace MonkeModManager
 {
     public partial class FormMain : Form
     {
-        public const string BaseEndpoint = "https://api.github.com/repos/";
-        public const Int16 CurrentVersion = 1;
-        public List<ReleaseInfo> releases;
-        public string InstallDirectory = @"";
+
+        private const string BaseEndpoint = "https://api.github.com/repos/";
+        private const Int16 CurrentVersion = 1;
+        private List<ReleaseInfo> releases;
+        private string InstallDirectory = @"";
         public bool isSteam = true;
         public bool platformDetected = false;
+
         public FormMain()
         {
             InitializeComponent();
         }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             LocationHandler();
@@ -36,6 +38,7 @@ namespace MonkeModManager
         }
 
         #region ReleaseHandling
+
         private void LoadReleases()
         {
             var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/mods.json"));
@@ -49,6 +52,7 @@ namespace MonkeModManager
             }
             //WriteReleasesToDisk();
         }
+
         private void LoadRequiredPlugins()
         {
             CheckVersion();
@@ -101,6 +105,7 @@ namespace MonkeModManager
         #endregion
 
         #region Installation
+
         private void Install()
         {
             ChangeInstallButtonState(false);
@@ -131,6 +136,7 @@ namespace MonkeModManager
         #endregion
 
         #region UIEvents
+
         private void buttonInstall_Click(object sender, EventArgs e)
         {
             new Thread(() =>
@@ -138,6 +144,7 @@ namespace MonkeModManager
                 Install();
             }).Start();
         }
+
         private void buttonFolderBrowser_Click(object sender, EventArgs e)
         {
             using (var fileDialog = new OpenFileDialog())
@@ -162,20 +169,24 @@ namespace MonkeModManager
 
             }
         }
+
         private void listViewMods_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             ReleaseInfo release = (ReleaseInfo)e.Item.Tag;
             if (release.Name.Contains("BepInEx")) { e.Item.Checked = true; };
             release.Install = e.Item.Checked;
         }
+
          private void listViewMods_DoubleClick(object sender, EventArgs e)
         {
             OpenLinkFromRelease();
         }
+
         private void buttonModInfo_Click(object sender, EventArgs e)
         {
             OpenLinkFromRelease();
         }
+
         private void viewInfoToolStripMenuItem_Click(object sender, EventArgs e)
          {
              OpenLinkFromRelease();
@@ -231,6 +242,7 @@ namespace MonkeModManager
                 return null;
             }
         }
+
         private void UnzipFile(byte[] data, string directory)
         {
             using (MemoryStream ms = new MemoryStream(data))
@@ -241,12 +253,14 @@ namespace MonkeModManager
                 }
             }
         }
+
         private byte[] DownloadFile(string url)
         {
             WebClient client = new WebClient();
             client.Proxy = null;
             return client.DownloadData(url);
         }
+
         private void UpdateStatus(string status)
         {
             string formattedText = string.Format("Status: {0}", status);
@@ -256,10 +270,6 @@ namespace MonkeModManager
             }));
         }
   
-        public string Quoted(string str)
-        {
-            return "\"" + str + "\"";
-        }
         private void NotFoundHandler()
         {
             bool found = false;
@@ -291,6 +301,7 @@ namespace MonkeModManager
                 }
             }
         }
+
         private void CheckVersion()
         {
             UpdateStatus("Checking for updates...");
@@ -306,6 +317,7 @@ namespace MonkeModManager
                 }));
             }
         }
+
         private void ChangeInstallButtonState(bool enabled)
         {
             this.Invoke((MethodInvoker)(() =>
@@ -313,25 +325,7 @@ namespace MonkeModManager
                     buttonInstall.Enabled = enabled;
                 }));
         }
-        private void WriteReleasesToDisk()
-        {
-            JSONNode root = new JSONObject();
-            root["totalMods"] = releases.Count;
-            foreach (ReleaseInfo release in releases)
-            {
-                JSONNode item = new JSONObject();
-                item["name"] = release.Name;
-                item["author"] = release.Author;
-                item["version"] = release.Version;
-                item["tag"] = release.Tag;
-                item["gitPath"] = release.GitPath;
-                item["releaseId"] = release.ReleaseId;
-                root.Add(releases.IndexOf(release).ToString(), item);
-            }
-            StringBuilder builder = new StringBuilder();
-            root.WriteToStringBuilder(builder, 1,1, JSONTextMode.Indent);
-            System.IO.File.WriteAllText("mods.json", builder.ToString());
-        }
+
         private void OpenLinkFromRelease()
         {
             if (listViewMods.SelectedItems.Count > 0)
@@ -341,6 +335,7 @@ namespace MonkeModManager
             }
             
         }
+
         #endregion
 
         #region Registry
