@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
@@ -46,9 +47,17 @@ namespace MonkeModManager
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["author"], current["gitPath"], current["releaseId"], current["tag"]);
+                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["dependencies"].AsArray);
                 UpdateReleaseInfo(ref release);
                 releases.Add(release);
+            }
+
+            foreach (ReleaseInfo release in releases)
+            {
+                foreach (string dep in release.Dependencies)
+                {
+                    releases.Where(x => x.Name == dep).FirstOrDefault()?.Dependents.Add(release.Name);
+                }
             }
             //WriteReleasesToDisk();
         }
@@ -64,7 +73,7 @@ namespace MonkeModManager
                 foreach (ReleaseInfo release in releases)
                 {
                     ListViewItem item = new ListViewItem();
-                    item.Text = release.Name;
+                    item.Text = $"{release.Name} - {release.Version}";
                     if (release.Tag != string.Empty) { item.Text = string.Format("{0} - ({1})",release.Name, release.Tag); };
                     item.SubItems.Add(release.Author);
                     item.Tag = release;
@@ -91,8 +100,6 @@ namespace MonkeModManager
             var rootNode = JSON.Parse(DownloadSite(releaseFormatted))[0];
             
             release.Version = rootNode["tag_name"];
-            
-            release.Name = rootNode["name"];
             
             var assetsNode = rootNode["assets"];
             var downloadReleaseNode = assetsNode[release.ReleaseId];
@@ -173,6 +180,45 @@ namespace MonkeModManager
         private void listViewMods_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             ReleaseInfo release = (ReleaseInfo)e.Item.Tag;
+
+            if (release.Dependencies.Count > 0)
+            {
+                foreach (ListViewItem item in listViewMods.Items)
+                {
+                    var plugin = (ReleaseInfo)item.Tag;
+
+                    if (plugin.Name == release.Name) continue;
+
+                    // if this depends on plugin
+                    if (release.Dependencies.Contains(plugin.Name))
+                    {
+                        if (e.Item.Checked)
+                        {
+                            item.Checked = true;
+                            item.ForeColor = System.Drawing.Color.DimGray;
+                        }
+                        else
+                        {
+                            release.Install = false;
+                            if (releases.Count(x => plugin.Dependents.Contains(x.Name) && x.Install) <= 1)
+                            {
+                                item.Checked = false;
+                                item.ForeColor = System.Drawing.Color.Black;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // don't allow user to uncheck if a dependent is checked
+            if (release.Dependents.Count > 0)
+            {
+                if (releases.Count(x => release.Dependents.Contains(x.Name) && x.Install) > 0)
+                {
+                    e.Item.Checked = true;
+                }
+            }
+
             if (release.Name.Contains("BepInEx")) { e.Item.Checked = true; };
             release.Install = e.Item.Checked;
         }
@@ -220,7 +266,7 @@ namespace MonkeModManager
                 RQuest.CookieContainer = PermCookie;
                 RQuest.ContentType = "application/x-www-form-urlencoded";
                 RQuest.Referer = "";
-                RQuest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
+                RQuest.UserAgent = "Monke-Mod-Manager";
                 RQuest.Proxy = null;
                 HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
                 StreamReader Sr = new StreamReader(Response.GetResponseStream());
@@ -238,7 +284,7 @@ namespace MonkeModManager
                 {
                     MessageBox.Show("Failed to update version info, please check your internet connection", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                //Process.GetCurrentProcess().Kill();
+                Process.GetCurrentProcess().Kill();
                 return null;
             }
         }
@@ -377,6 +423,7 @@ namespace MonkeModManager
             if (release.Name.Contains("BepInEx"))
             {
                 item.Checked = true;
+                item.ForeColor = System.Drawing.Color.DimGray;
             }
             else
             {
