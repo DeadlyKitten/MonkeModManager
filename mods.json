@@ -13,6 +13,23 @@
          "gitPath" : "legoandmars/GorillaCosmetics",
          "releaseId" : 0,
          "author" : "Bobbie"
-      }
+      },
+      {
+         "name" : "Space Monke",
+         "tag" : "",
+         "gitPath" : "legoandmars/SpaceMonke",
+         "releaseId" : 0,
+         "author" : "Bobbie",
+         "dependencies" : [
+           "Utilla"
+          ]
+      },
+      {
+         "name" : "Utilla",
+         "tag" : "",
+         "gitPath" : "legoandmars/Utilla",
+         "releaseId" : 0,
+         "author" : "Bobbie"
+      } 
    ]
 }
