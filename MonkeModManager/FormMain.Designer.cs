@@ -42,13 +42,23 @@
             this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonModInfo = new System.Windows.Forms.Button();
             this.Utilities = new System.Windows.Forms.TabPage();
+            this.labelOpen = new System.Windows.Forms.Label();
+            this.buttonRestoreCosmetics = new System.Windows.Forms.Button();
+            this.buttonRestoreMods = new System.Windows.Forms.Button();
+            this.buttonBackupCosmetics = new System.Windows.Forms.Button();
+            this.buttonBackupMods = new System.Windows.Forms.Button();
             this.buttonUninstallAll = new System.Windows.Forms.Button();
+            this.buttonModInfo = new System.Windows.Forms.Button();
+            this.buttonOpenGameFolder = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonOpenConfig = new System.Windows.Forms.Button();
+            this.buttonBepInEx = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.Plugins.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
             this.Utilities.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxDirectory
@@ -174,6 +184,80 @@
             this.viewInfoToolStripMenuItem.Text = "View Info";
             this.viewInfoToolStripMenuItem.Click += new System.EventHandler(this.viewInfoToolStripMenuItem_Click);
             // 
+            // Utilities
+            // 
+            this.Utilities.Controls.Add(this.groupBox1);
+            this.Utilities.Controls.Add(this.buttonRestoreCosmetics);
+            this.Utilities.Controls.Add(this.buttonRestoreMods);
+            this.Utilities.Controls.Add(this.buttonBackupCosmetics);
+            this.Utilities.Controls.Add(this.buttonBackupMods);
+            this.Utilities.Controls.Add(this.buttonUninstallAll);
+            this.Utilities.Location = new System.Drawing.Point(4, 22);
+            this.Utilities.Name = "Utilities";
+            this.Utilities.Size = new System.Drawing.Size(536, 256);
+            this.Utilities.TabIndex = 1;
+            this.Utilities.Text = "Utilities";
+            this.Utilities.UseVisualStyleBackColor = true;
+            // 
+            // labelOpen
+            // 
+            this.labelOpen.AutoSize = true;
+            this.labelOpen.Location = new System.Drawing.Point(23, 15);
+            this.labelOpen.Name = "labelOpen";
+            this.labelOpen.Size = new System.Drawing.Size(99, 13);
+            this.labelOpen.TabIndex = 6;
+            this.labelOpen.Text = "Important Folders";
+            // 
+            // buttonRestoreCosmetics
+            // 
+            this.buttonRestoreCosmetics.Location = new System.Drawing.Point(14, 173);
+            this.buttonRestoreCosmetics.Name = "buttonRestoreCosmetics";
+            this.buttonRestoreCosmetics.Size = new System.Drawing.Size(132, 37);
+            this.buttonRestoreCosmetics.TabIndex = 4;
+            this.buttonRestoreCosmetics.Text = "Restore Cosmetics from Backup";
+            this.buttonRestoreCosmetics.UseVisualStyleBackColor = true;
+            this.buttonRestoreCosmetics.Click += new System.EventHandler(this.buttonRestoreCosmetics_Click);
+            // 
+            // buttonRestoreMods
+            // 
+            this.buttonRestoreMods.Location = new System.Drawing.Point(14, 130);
+            this.buttonRestoreMods.Name = "buttonRestoreMods";
+            this.buttonRestoreMods.Size = new System.Drawing.Size(132, 37);
+            this.buttonRestoreMods.TabIndex = 3;
+            this.buttonRestoreMods.Text = "Restore Mods from Backup";
+            this.buttonRestoreMods.UseVisualStyleBackColor = true;
+            this.buttonRestoreMods.Click += new System.EventHandler(this.buttonRestoreMods_Click);
+            // 
+            // buttonBackupCosmetics
+            // 
+            this.buttonBackupCosmetics.Location = new System.Drawing.Point(14, 101);
+            this.buttonBackupCosmetics.Name = "buttonBackupCosmetics";
+            this.buttonBackupCosmetics.Size = new System.Drawing.Size(132, 23);
+            this.buttonBackupCosmetics.TabIndex = 2;
+            this.buttonBackupCosmetics.Text = "Backup Cosmetics";
+            this.buttonBackupCosmetics.UseVisualStyleBackColor = true;
+            this.buttonBackupCosmetics.Click += new System.EventHandler(this.buttonBackupCosmetics_Click);
+            // 
+            // buttonBackupMods
+            // 
+            this.buttonBackupMods.Location = new System.Drawing.Point(14, 72);
+            this.buttonBackupMods.Name = "buttonBackupMods";
+            this.buttonBackupMods.Size = new System.Drawing.Size(132, 23);
+            this.buttonBackupMods.TabIndex = 1;
+            this.buttonBackupMods.Text = "Backup Mods Folder";
+            this.buttonBackupMods.UseVisualStyleBackColor = true;
+            this.buttonBackupMods.Click += new System.EventHandler(this.buttonBackupMods_Click);
+            // 
+            // buttonUninstallAll
+            // 
+            this.buttonUninstallAll.Location = new System.Drawing.Point(14, 43);
+            this.buttonUninstallAll.Name = "buttonUninstallAll";
+            this.buttonUninstallAll.Size = new System.Drawing.Size(132, 23);
+            this.buttonUninstallAll.TabIndex = 0;
+            this.buttonUninstallAll.Text = "Uninstall All Mods";
+            this.buttonUninstallAll.UseVisualStyleBackColor = true;
+            this.buttonUninstallAll.Click += new System.EventHandler(this.buttonUninstallAll_Click);
+            // 
             // buttonModInfo
             // 
             this.buttonModInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -186,25 +270,47 @@
             this.buttonModInfo.UseVisualStyleBackColor = true;
             this.buttonModInfo.Click += new System.EventHandler(this.buttonModInfo_Click);
             // 
-            // Utilities
+            // buttonOpenGameFolder
             // 
-            this.Utilities.Controls.Add(this.buttonUninstallAll);
-            this.Utilities.Location = new System.Drawing.Point(4, 22);
-            this.Utilities.Name = "Utilities";
-            this.Utilities.Size = new System.Drawing.Size(536, 256);
-            this.Utilities.TabIndex = 1;
-            this.Utilities.Text = "Utilities";
-            this.Utilities.UseVisualStyleBackColor = true;
+            this.buttonOpenGameFolder.Location = new System.Drawing.Point(6, 38);
+            this.buttonOpenGameFolder.Name = "buttonOpenGameFolder";
+            this.buttonOpenGameFolder.Size = new System.Drawing.Size(134, 23);
+            this.buttonOpenGameFolder.TabIndex = 5;
+            this.buttonOpenGameFolder.Text = "Game Folder";
+            this.buttonOpenGameFolder.UseVisualStyleBackColor = true;
+            this.buttonOpenGameFolder.Click += new System.EventHandler(this.buttonOpenGameFolder_Click);
             // 
-            // buttonUninstallAll
+            // groupBox1
             // 
-            this.buttonUninstallAll.Location = new System.Drawing.Point(14, 20);
-            this.buttonUninstallAll.Name = "buttonUninstallAll";
-            this.buttonUninstallAll.Size = new System.Drawing.Size(132, 23);
-            this.buttonUninstallAll.TabIndex = 0;
-            this.buttonUninstallAll.Text = "Uninstall All Mods";
-            this.buttonUninstallAll.UseVisualStyleBackColor = true;
-            this.buttonUninstallAll.Click += new System.EventHandler(this.buttonUninstallAll_Click);
+            this.groupBox1.Controls.Add(this.buttonBepInEx);
+            this.groupBox1.Controls.Add(this.buttonOpenConfig);
+            this.groupBox1.Controls.Add(this.buttonOpenGameFolder);
+            this.groupBox1.Controls.Add(this.labelOpen);
+            this.groupBox1.Location = new System.Drawing.Point(373, 43);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(146, 130);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            // 
+            // buttonOpenConfig
+            // 
+            this.buttonOpenConfig.Location = new System.Drawing.Point(6, 67);
+            this.buttonOpenConfig.Name = "buttonOpenConfig";
+            this.buttonOpenConfig.Size = new System.Drawing.Size(134, 23);
+            this.buttonOpenConfig.TabIndex = 5;
+            this.buttonOpenConfig.Text = "Config Folder";
+            this.buttonOpenConfig.UseVisualStyleBackColor = true;
+            this.buttonOpenConfig.Click += new System.EventHandler(this.buttonOpenConfigFolder_Click);
+            // 
+            // buttonBepInEx
+            // 
+            this.buttonBepInEx.Location = new System.Drawing.Point(6, 96);
+            this.buttonBepInEx.Name = "buttonBepInEx";
+            this.buttonBepInEx.Size = new System.Drawing.Size(134, 23);
+            this.buttonBepInEx.TabIndex = 5;
+            this.buttonBepInEx.Text = "BepInEx Folder";
+            this.buttonBepInEx.UseVisualStyleBackColor = true;
+            this.buttonBepInEx.Click += new System.EventHandler(this.buttonOpenBepInExFolder_Click);
             // 
             // FormMain
             // 
@@ -228,6 +334,8 @@
             this.Plugins.ResumeLayout(false);
             this.contextMenuStripMain.ResumeLayout(false);
             this.Utilities.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,6 +358,15 @@
         private System.Windows.Forms.Button buttonModInfo;
         private System.Windows.Forms.TabPage Utilities;
         private System.Windows.Forms.Button buttonUninstallAll;
+        private System.Windows.Forms.Button buttonBackupMods;
+        private System.Windows.Forms.Button buttonBackupCosmetics;
+        private System.Windows.Forms.Button buttonRestoreMods;
+        private System.Windows.Forms.Button buttonRestoreCosmetics;
+        private System.Windows.Forms.Label labelOpen;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonBepInEx;
+        private System.Windows.Forms.Button buttonOpenConfig;
+        private System.Windows.Forms.Button buttonOpenGameFolder;
     }
 }
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.IO.Compression;
 using System.Threading;
 using MonkeModManager.Internals;
 using System.Diagnostics;
@@ -129,7 +130,7 @@ namespace MonkeModManager
                 {
                     UpdateStatus(string.Format("Downloading...{0}", release.Name));
                     byte[] file = DownloadFile(release.Link);
-                    UpdateStatus(string.Format("Moving...{0}", release.Name));
+                    UpdateStatus(string.Format("Installing...{0}", release.Name));
                     string fileName = Path.GetFileName(release.Link);
                     if (Path.GetExtension(fileName).Equals(".dll"))
                     {
@@ -141,7 +142,7 @@ namespace MonkeModManager
                     {
                         UnzipFile(file, InstallDirectory);
                     }
-                    UpdateStatus(string.Format("Moved!{0}", release.Name));
+                    UpdateStatus(string.Format("Installed {0}!", release.Name));
                 }
             }
             UpdateStatus("Install complete!");
@@ -258,9 +259,202 @@ namespace MonkeModManager
             }
         }
 
-#endregion
+        private void buttonUninstallAll_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show(
+                "You are about to delete all your mods (including hats and materials). This cannot be undone!\n\nAre you sure you wish to continue?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo);
 
-#region Helpers
+            if (confirmResult == DialogResult.Yes)
+            {
+                UpdateStatus("Uninstalling all mods");
+
+                var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
+
+                try
+                {
+                    foreach (var d in Directory.GetDirectories(pluginsPath))
+                    {
+                        Directory.Delete(d, true);
+                    }
+
+                    foreach (var f in Directory.GetFiles(pluginsPath))
+                    {
+                        File.Delete(f);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UpdateStatus("Failed to uninstall mods.");
+                    return;
+                }
+
+                UpdateStatus("All mods uninstalled successfully!");
+            }
+        }
+
+        private void buttonBackupMods_Click(object sender, EventArgs e)
+        {
+            var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = InstallDirectory,
+                FileName = $"Mod Backup",
+                Filter = "ZIP Folder (.zip)|*.zip",
+                Title = "Save Mod Backup"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK && saveFileDialog.FileName != "")
+            {
+                UpdateStatus("Backing up mods...");
+                try
+                {
+                    if (File.Exists(saveFileDialog.FileName)) File.Delete(saveFileDialog.FileName);
+                    ZipFile.CreateFromDirectory(pluginsPath, saveFileDialog.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UpdateStatus("Failed to back up mods.");
+                    return;
+                }
+                UpdateStatus("Successfully backed up mods!");
+            }
+
+
+        }
+
+        private void buttonBackupCosmetics_Click(object sender, EventArgs e)
+        {
+            var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = InstallDirectory,
+                FileName = $"Cosmetics Backup",
+                Filter = "ZIP Folder (.zip)|*.zip",
+                Title = "Save Cosmetics Backup"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK && saveFileDialog.FileName != "")
+            {
+                UpdateStatus("Backing up cosmetics...");
+                if (File.Exists(saveFileDialog.FileName)) File.Delete(saveFileDialog.FileName);
+                try
+                {
+                    ZipFile.CreateFromDirectory(Path.Combine(pluginsPath, @"GorillaCosmetics\Hats"), saveFileDialog.FileName, CompressionLevel.Optimal, true);
+                    using (ZipArchive archive = ZipFile.Open(saveFileDialog.FileName, ZipArchiveMode.Update))
+                    {
+                        foreach (var f in Directory.GetFiles(Path.Combine(pluginsPath, @"GorillaCosmetics\Materials")))
+                        {
+                            archive.CreateEntryFromFile(f, $"{Path.Combine("Materials", Path.GetFileName(f))}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UpdateStatus("Failed to restore cosmetics.");
+                    return;
+                }
+                UpdateStatus("Backed up cosmetics!");
+            }
+        }
+
+        private void buttonRestoreMods_Click(object sender, EventArgs e)
+        {
+            using (var fileDialog = new OpenFileDialog())
+            {
+                fileDialog.InitialDirectory = InstallDirectory;
+                fileDialog.FileName = "Mod Backup.zip";
+                fileDialog.Filter = "ZIP Folder (.zip)|*.zip";
+                fileDialog.FilterIndex = 1;
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (!Path.GetExtension(fileDialog.FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        MessageBox.Show("Invalid file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UpdateStatus("Failed to restore mods.");
+                        return;
+                    }
+                    var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
+                    try
+                    {
+                        UpdateStatus("Restoring mods...");
+                        using (var archive = ZipFile.OpenRead(fileDialog.FileName))
+                        {
+                            foreach (var entry in archive.Entries)
+                            {
+                                var directory = Path.Combine(InstallDirectory, @"BepInEx\plugins", Path.GetDirectoryName(entry.FullName));
+                                if (!Directory.Exists(directory))
+                                {
+                                    Directory.CreateDirectory(directory);
+                                }
+
+                                entry.ExtractToFile(Path.Combine(pluginsPath, entry.FullName), true);
+                            }
+                        }
+                        UpdateStatus("Successfully restored mods!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UpdateStatus("Failed to restore mods.");
+                    }
+                }
+            }
+        }
+
+        private void buttonRestoreCosmetics_Click(object sender, EventArgs e)
+        {
+            using (var fileDialog = new OpenFileDialog())
+            {
+                fileDialog.InitialDirectory = InstallDirectory;
+                fileDialog.FileName = "Cosmetics Backup.zip";
+                fileDialog.Filter = "ZIP Folder (.zip)|*.zip";
+                fileDialog.FilterIndex = 1;
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (!Path.GetExtension(fileDialog.FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        MessageBox.Show("Invalid file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UpdateStatus("Failed to restore co0smetics.");
+                        return;
+                    }
+                    var cosmeticsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins\GorillaCosmetics");
+                    try
+                    {
+                        UpdateStatus("Restoring cosmetics...");
+                        using (var archive = ZipFile.OpenRead(fileDialog.FileName))
+                        {
+                            foreach (var entry in archive.Entries)
+                            {
+                                var directory = Path.Combine(InstallDirectory, @"BepInEx\plugins\GorillaCosmetics", Path.GetDirectoryName(entry.FullName));
+                                if (!Directory.Exists(directory))
+                                {
+                                    Directory.CreateDirectory(directory);
+                                }
+
+                                entry.ExtractToFile(Path.Combine(cosmeticsPath, entry.FullName), true);
+                            }
+                        }
+                        UpdateStatus("Successfully restored cosmetics!");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UpdateStatus("Failed to restore cosmetics.");
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Helpers
 
         private CookieContainer PermCookie;
         private string DownloadSite(string URL)
@@ -388,6 +582,7 @@ namespace MonkeModManager
             if (listViewMods.SelectedItems.Count > 0)
             {
                 ReleaseInfo release = (ReleaseInfo)listViewMods.SelectedItems[0].Tag;
+                UpdateStatus($"Opening GitHub page for {release.Name}");
                 Process.Start(string.Format("https://github.com/{0}", release.GitPath));
             }
             
@@ -512,33 +707,28 @@ namespace MonkeModManager
         }
 
 
+
+
         #endregion
 
-        private void buttonUninstallAll_Click(object sender, EventArgs e)
+        private void buttonOpenGameFolder_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show(
-                "You are about to delete all your mods (including hats and materials). This cannot be undone!\n\nAre you sure you wish to continue?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo);
+            if (Directory.Exists(InstallDirectory))
+                Process.Start(InstallDirectory);
+        }
 
-            if (confirmResult == DialogResult.Yes)
-            {
-                UpdateStatus("Uninstalling all mods");
+        private void buttonOpenConfigFolder_Click(object sender, EventArgs e)
+        {
+            var configDirectory = Path.Combine(InstallDirectory, @"BepInEx\config");
+            if (Directory.Exists(configDirectory))
+                Process.Start(configDirectory);
+        }
 
-                var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
-
-                foreach (var d in Directory.GetDirectories(pluginsPath))
-                {
-                    Directory.Delete(d, true);
-                }
-
-                foreach (var f in Directory.GetFiles(pluginsPath))
-                {
-                    File.Delete(f);
-                }
-
-                UpdateStatus("All mods uninstalled successfully!");
-            }
+        private void buttonOpenBepInExFolder_Click(object sender, EventArgs e)
+        {
+            var BepInExDirectory = Path.Combine(InstallDirectory, "BepInEx");
+            if (Directory.Exists(BepInExDirectory))
+                Process.Start(BepInExDirectory);
         }
     }
 
