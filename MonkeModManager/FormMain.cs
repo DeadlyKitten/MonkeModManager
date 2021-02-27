@@ -10,6 +10,8 @@ using MonkeModManager.Internals;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using MonkeModManager.Internals.SimpleJSON;
+using System.Text.RegularExpressions;
+
 namespace MonkeModManager
 {
     public partial class FormMain : Form
@@ -42,7 +44,11 @@ namespace MonkeModManager
 
         private void LoadReleases()
         {
+#if !DEBUG
             var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/mods.json"));
+#else
+            var decoded = JSON.Parse(File.ReadAllText("C:/Users/Steven/Desktop/testmods.json"));
+#endif
             var allMods = decoded["mods"].AsArray;
             for (int i = 0; i < allMods.Count; i++)
             {
@@ -109,9 +115,9 @@ namespace MonkeModManager
             if (release.Author.Equals(String.Empty)) release.Author = uploaderNode["login"];
         }
      
-        #endregion
+#endregion
 
-        #region Installation
+#region Installation
 
         private void Install()
         {
@@ -125,9 +131,11 @@ namespace MonkeModManager
                     byte[] file = DownloadFile(release.Link);
                     UpdateStatus(string.Format("Moving...{0}", release.Name));
                     string fileName = Path.GetFileName(release.Link);
-                    if (release.Link.Contains(".dll"))
+                    if (Path.GetExtension(fileName).Equals(".dll"))
                     {
-                        File.WriteAllBytes(InstallDirectory + @"\BepInEx\plugins\" + fileName, file);
+                        var dir = Path.Combine(InstallDirectory, @"BepInEx\plugins", Regex.Replace(release.Name, @"\s+", string.Empty));
+                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                        File.WriteAllBytes(Path.Combine(dir, fileName), file);
                     }
                     else
                     {
@@ -140,9 +148,9 @@ namespace MonkeModManager
             ChangeInstallButtonState(true);
         }
        
-        #endregion
+#endregion
 
-        #region UIEvents
+#region UIEvents
 
         private void buttonInstall_Click(object sender, EventArgs e)
         {
@@ -250,9 +258,9 @@ namespace MonkeModManager
             }
         }
 
-        #endregion
+#endregion
 
-        #region Helpers
+#region Helpers
 
         private CookieContainer PermCookie;
         private string DownloadSite(string URL)
@@ -268,6 +276,9 @@ namespace MonkeModManager
                 RQuest.Referer = "";
                 RQuest.UserAgent = "Monke-Mod-Manager";
                 RQuest.Proxy = null;
+#if DEBUG
+                RQuest.Headers.Add("Authorization", $"Token {File.ReadAllText("token.txt")}");
+#endif
                 HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
                 StreamReader Sr = new StreamReader(Response.GetResponseStream());
                 string Code = Sr.ReadToEnd();
@@ -382,9 +393,9 @@ namespace MonkeModManager
             
         }
 
-        #endregion
+#endregion
 
-        #region Registry
+#region Registry
         private void LocationHandler()
         {
             string steam = GetSteamLocation();
@@ -430,9 +441,9 @@ namespace MonkeModManager
                 release.Install = false;
             }
         }
-        #endregion
+#endregion
 
-        #region RegHelper
+#region RegHelper
         enum RegSAM
         {
             QueryValue = 0x0001,
@@ -500,7 +511,7 @@ namespace MonkeModManager
             }
         }
 
-        #endregion
+#endregion
 
 
     }
