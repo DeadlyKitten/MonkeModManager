@@ -115,10 +115,10 @@ namespace MonkeModManager
             var uploaderNode = downloadReleaseNode["uploader"];
             if (release.Author.Equals(String.Empty)) release.Author = uploaderNode["login"];
         }
-     
-#endregion
 
-#region Installation
+        #endregion // ReleaseHandling
+
+        #region Installation
 
         private void Install()
         {
@@ -148,10 +148,10 @@ namespace MonkeModManager
             UpdateStatus("Install complete!");
             ChangeInstallButtonState(true);
         }
-       
-#endregion
 
-#region UIEvents
+        #endregion // Installation
+
+        #region UIEvents
 
         private void buttonInstall_Click(object sender, EventArgs e)
         {
@@ -452,7 +452,31 @@ namespace MonkeModManager
             }
         }
 
-        #endregion
+        #region Folders
+
+        private void buttonOpenGameFolder_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(InstallDirectory))
+                Process.Start(InstallDirectory);
+        }
+
+        private void buttonOpenConfigFolder_Click(object sender, EventArgs e)
+        {
+            var configDirectory = Path.Combine(InstallDirectory, @"BepInEx\config");
+            if (Directory.Exists(configDirectory))
+                Process.Start(configDirectory);
+        }
+
+        private void buttonOpenBepInExFolder_Click(object sender, EventArgs e)
+        {
+            var BepInExDirectory = Path.Combine(InstallDirectory, "BepInEx");
+            if (Directory.Exists(BepInExDirectory))
+                Process.Start(BepInExDirectory);
+        }
+
+        #endregion // Folders
+
+        #endregion // UIEvents
 
         #region Helpers
 
@@ -588,9 +612,10 @@ namespace MonkeModManager
             
         }
 
-#endregion
+#endregion // Helpers
 
-#region Registry
+        #region Registry
+
         private void LocationHandler()
         {
             string steam = GetSteamLocation();
@@ -636,9 +661,9 @@ namespace MonkeModManager
                 release.Install = false;
             }
         }
-#endregion
+#endregion // Registry
 
-#region RegHelper
+        #region RegHelper
         enum RegSAM
         {
             QueryValue = 0x0001,
@@ -706,30 +731,8 @@ namespace MonkeModManager
             }
         }
 
-
-
-
-        #endregion
-
-        private void buttonOpenGameFolder_Click(object sender, EventArgs e)
-        {
-            if (Directory.Exists(InstallDirectory))
-                Process.Start(InstallDirectory);
-        }
-
-        private void buttonOpenConfigFolder_Click(object sender, EventArgs e)
-        {
-            var configDirectory = Path.Combine(InstallDirectory, @"BepInEx\config");
-            if (Directory.Exists(configDirectory))
-                Process.Start(configDirectory);
-        }
-
-        private void buttonOpenBepInExFolder_Click(object sender, EventArgs e)
-        {
-            var BepInExDirectory = Path.Combine(InstallDirectory, "BepInEx");
-            if (Directory.Exists(BepInExDirectory))
-                Process.Start(BepInExDirectory);
-        }
+        #endregion // RegHelper
+ 
     }
 
 }
