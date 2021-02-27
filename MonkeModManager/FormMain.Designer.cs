@@ -36,16 +36,19 @@
             this.buttonInstall = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
             this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPageCore = new System.Windows.Forms.TabPage();
+            this.Plugins = new System.Windows.Forms.TabPage();
             this.listViewMods = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonModInfo = new System.Windows.Forms.Button();
+            this.Utilities = new System.Windows.Forms.TabPage();
+            this.buttonUninstallAll = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
-            this.tabPageCore.SuspendLayout();
+            this.Plugins.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
+            this.Utilities.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxDirectory
@@ -105,7 +108,8 @@
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlMain.Controls.Add(this.tabPageCore);
+            this.tabControlMain.Controls.Add(this.Plugins);
+            this.tabControlMain.Controls.Add(this.Utilities);
             this.tabControlMain.Enabled = false;
             this.tabControlMain.Location = new System.Drawing.Point(10, 53);
             this.tabControlMain.Name = "tabControlMain";
@@ -113,16 +117,16 @@
             this.tabControlMain.Size = new System.Drawing.Size(544, 282);
             this.tabControlMain.TabIndex = 8;
             // 
-            // tabPageCore
+            // Plugins
             // 
-            this.tabPageCore.Controls.Add(this.listViewMods);
-            this.tabPageCore.Location = new System.Drawing.Point(4, 22);
-            this.tabPageCore.Name = "tabPageCore";
-            this.tabPageCore.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCore.Size = new System.Drawing.Size(536, 256);
-            this.tabPageCore.TabIndex = 0;
-            this.tabPageCore.Text = "Plugins";
-            this.tabPageCore.UseVisualStyleBackColor = true;
+            this.Plugins.Controls.Add(this.listViewMods);
+            this.Plugins.Location = new System.Drawing.Point(4, 22);
+            this.Plugins.Name = "Plugins";
+            this.Plugins.Padding = new System.Windows.Forms.Padding(3);
+            this.Plugins.Size = new System.Drawing.Size(536, 256);
+            this.Plugins.TabIndex = 0;
+            this.Plugins.Text = "Plugins";
+            this.Plugins.UseVisualStyleBackColor = true;
             // 
             // listViewMods
             // 
@@ -182,6 +186,26 @@
             this.buttonModInfo.UseVisualStyleBackColor = true;
             this.buttonModInfo.Click += new System.EventHandler(this.buttonModInfo_Click);
             // 
+            // Utilities
+            // 
+            this.Utilities.Controls.Add(this.buttonUninstallAll);
+            this.Utilities.Location = new System.Drawing.Point(4, 22);
+            this.Utilities.Name = "Utilities";
+            this.Utilities.Size = new System.Drawing.Size(536, 256);
+            this.Utilities.TabIndex = 1;
+            this.Utilities.Text = "Utilities";
+            this.Utilities.UseVisualStyleBackColor = true;
+            // 
+            // buttonUninstallAll
+            // 
+            this.buttonUninstallAll.Location = new System.Drawing.Point(14, 20);
+            this.buttonUninstallAll.Name = "buttonUninstallAll";
+            this.buttonUninstallAll.Size = new System.Drawing.Size(132, 23);
+            this.buttonUninstallAll.TabIndex = 0;
+            this.buttonUninstallAll.Text = "Uninstall All Mods";
+            this.buttonUninstallAll.UseVisualStyleBackColor = true;
+            this.buttonUninstallAll.Click += new System.EventHandler(this.buttonUninstallAll_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,8 +225,9 @@
             this.Text = "Monke Mod Manager";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
-            this.tabPageCore.ResumeLayout(false);
+            this.Plugins.ResumeLayout(false);
             this.contextMenuStripMain.ResumeLayout(false);
+            this.Utilities.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,13 +241,15 @@
         private System.Windows.Forms.Button buttonInstall;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.TabControl tabControlMain;
-        private System.Windows.Forms.TabPage tabPageCore;
+        private System.Windows.Forms.TabPage Plugins;
         private System.Windows.Forms.ListView listViewMods;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderAuthor;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMain;
         private System.Windows.Forms.ToolStripMenuItem viewInfoToolStripMenuItem;
         private System.Windows.Forms.Button buttonModInfo;
+        private System.Windows.Forms.TabPage Utilities;
+        private System.Windows.Forms.Button buttonUninstallAll;
     }
 }
 

@@ -100,7 +100,7 @@ namespace MonkeModManager
 
         private void UpdateReleaseInfo(ref ReleaseInfo release)
         {
-            Thread.Sleep(500); //So we don't get rate limited by github
+            Thread.Sleep(100); //So we don't get rate limited by github
 
             string releaseFormatted = BaseEndpoint + release.GitPath + "/releases";
             var rootNode = JSON.Parse(DownloadSite(releaseFormatted))[0];
@@ -277,7 +277,7 @@ namespace MonkeModManager
                 RQuest.UserAgent = "Monke-Mod-Manager";
                 RQuest.Proxy = null;
 #if DEBUG
-                RQuest.Headers.Add("Authorization", $"Token {File.ReadAllText("token.txt")}");
+                RQuest.Headers.Add("Authorization", $"Token {File.ReadAllText("../../token.txt")}");
 #endif
                 HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
                 StreamReader Sr = new StreamReader(Response.GetResponseStream());
@@ -511,9 +511,35 @@ namespace MonkeModManager
             }
         }
 
-#endregion
 
+        #endregion
 
+        private void buttonUninstallAll_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show(
+                "You are about to delete all your mods (including hats and materials). This cannot be undone!\n\nAre you sure you wish to continue?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                UpdateStatus("Uninstalling all mods");
+
+                var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
+
+                foreach (var d in Directory.GetDirectories(pluginsPath))
+                {
+                    Directory.Delete(d, true);
+                }
+
+                foreach (var f in Directory.GetFiles(pluginsPath))
+                {
+                    File.Delete(f);
+                }
+
+                UpdateStatus("All mods uninstalled successfully!");
+            }
+        }
     }
 
 }
