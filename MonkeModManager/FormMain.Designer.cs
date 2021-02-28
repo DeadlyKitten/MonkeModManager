@@ -43,6 +43,9 @@
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Utilities = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonOpenWiki = new System.Windows.Forms.Button();
+            this.buttonDiscordLink = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonBepInEx = new System.Windows.Forms.Button();
             this.buttonOpenConfig = new System.Windows.Forms.Button();
@@ -54,10 +57,12 @@
             this.buttonBackupMods = new System.Windows.Forms.Button();
             this.buttonUninstallAll = new System.Windows.Forms.Button();
             this.buttonModInfo = new System.Windows.Forms.Button();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.Plugins.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
             this.Utilities.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -186,6 +191,10 @@
             // 
             // Utilities
             // 
+            this.Utilities.Controls.Add(this.labelVersion);
+            this.Utilities.Controls.Add(this.pictureBox1);
+            this.Utilities.Controls.Add(this.buttonOpenWiki);
+            this.Utilities.Controls.Add(this.buttonDiscordLink);
             this.Utilities.Controls.Add(this.groupBox1);
             this.Utilities.Controls.Add(this.buttonRestoreCosmetics);
             this.Utilities.Controls.Add(this.buttonRestoreMods);
@@ -199,13 +208,43 @@
             this.Utilities.Text = "Utilities";
             this.Utilities.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(170, 43);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(186, 163);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
+            // buttonOpenWiki
+            // 
+            this.buttonOpenWiki.Location = new System.Drawing.Point(379, 183);
+            this.buttonOpenWiki.Name = "buttonOpenWiki";
+            this.buttonOpenWiki.Size = new System.Drawing.Size(134, 23);
+            this.buttonOpenWiki.TabIndex = 9;
+            this.buttonOpenWiki.Text = "Check out the guides!";
+            this.buttonOpenWiki.UseVisualStyleBackColor = true;
+            this.buttonOpenWiki.Click += new System.EventHandler(this.buttonOpenWiki_Click);
+            // 
+            // buttonDiscordLink
+            // 
+            this.buttonDiscordLink.Location = new System.Drawing.Point(379, 153);
+            this.buttonDiscordLink.Name = "buttonDiscordLink";
+            this.buttonDiscordLink.Size = new System.Drawing.Size(134, 23);
+            this.buttonDiscordLink.TabIndex = 8;
+            this.buttonDiscordLink.Text = "Join the Discord!";
+            this.buttonDiscordLink.UseVisualStyleBackColor = true;
+            this.buttonDiscordLink.Click += new System.EventHandler(this.buttonDiscordLink_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.buttonBepInEx);
             this.groupBox1.Controls.Add(this.buttonOpenConfig);
             this.groupBox1.Controls.Add(this.buttonOpenGameFolder);
             this.groupBox1.Controls.Add(this.labelOpen);
-            this.groupBox1.Location = new System.Drawing.Point(373, 43);
+            this.groupBox1.Location = new System.Drawing.Point(373, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(146, 130);
             this.groupBox1.TabIndex = 7;
@@ -312,6 +351,17 @@
             this.buttonModInfo.UseVisualStyleBackColor = true;
             this.buttonModInfo.Click += new System.EventHandler(this.buttonModInfo_Click);
             // 
+            // labelVersion
+            // 
+            this.labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(188, 209);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(151, 13);
+            this.labelVersion.TabIndex = 11;
+            this.labelVersion.Text = "Monke Mod Manager v1.1.0";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,6 +384,8 @@
             this.Plugins.ResumeLayout(false);
             this.contextMenuStripMain.ResumeLayout(false);
             this.Utilities.ResumeLayout(false);
+            this.Utilities.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -367,6 +419,10 @@
         private System.Windows.Forms.Button buttonBepInEx;
         private System.Windows.Forms.Button buttonOpenConfig;
         private System.Windows.Forms.Button buttonOpenGameFolder;
+        private System.Windows.Forms.Button buttonOpenWiki;
+        private System.Windows.Forms.Button buttonDiscordLink;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelVersion;
     }
 }
 

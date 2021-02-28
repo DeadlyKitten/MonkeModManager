@@ -531,6 +531,16 @@ namespace MonkeModManager
 
         #endregion // Folders
 
+        private void buttonOpenWiki_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://gorillatagmodding.burrito.software/");
+        }
+
+        private void buttonDiscordLink_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/ux4ZbBC6JQ");
+        }
+
         #endregion // UIEvents
 
         #region Helpers
@@ -787,7 +797,7 @@ namespace MonkeModManager
         }
 
         #endregion // RegHelper
- 
+
     }
 
 }
