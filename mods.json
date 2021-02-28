@@ -14,7 +14,10 @@
          "gitPath" : "legoandmars/GorillaCosmetics",
          "releaseId" : 0,
          "author" : "Bobbie",
-         "group" : "Cosmetic"
+         "group" : "Cosmetic",
+         "dependencies" : [
+          "Newtonsoft.JSON"
+         ]
       },
       {
          "name" : "Space Monke",
