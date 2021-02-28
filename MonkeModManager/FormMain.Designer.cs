@@ -353,14 +353,15 @@
             // 
             // labelVersion
             // 
-            this.labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.labelVersion.AutoSize = true;
             this.labelVersion.Location = new System.Drawing.Point(188, 209);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(151, 13);
+            this.labelVersion.Size = new System.Drawing.Size(119, 13);
             this.labelVersion.TabIndex = 11;
-            this.labelVersion.Text = "Monke Mod Manager v1.1.0";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelVersion.Text = "Monke Mod Manager";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.labelVersion.UseMnemonic = false;
             // 
             // FormMain
             // 

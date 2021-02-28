@@ -36,6 +36,8 @@ namespace MonkeModManager
             LocationHandler();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             releases = new List<ReleaseInfo>();
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            labelVersion.Text = "Monke Mod Manager v" + version.Substring(0, version.Length - 2);
             new Thread(() =>
             {
                 LoadRequiredPlugins();
