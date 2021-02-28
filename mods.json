@@ -82,6 +82,14 @@
         "author" : "Auros",
         "group" : "Libraries",
         "installPath" : "BepInEx/plugins"
+      },
+      {
+         "name" : "Newtonsoft.JSON",
+         "tag" : "",
+         "gitPath" : "legoandmars/Newtonsoft.Json",
+         "releaseId" : 0,
+         "author" : "James Newton-King",
+         "group" : "Libraries"
       }
    ],
    "groups" : [
