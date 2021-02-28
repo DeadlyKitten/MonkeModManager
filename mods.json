@@ -69,7 +69,7 @@
         "name" : "Bepinject",
         "tag" : "",
         "gitPath" : "Auros/Bepinject",
-        "releaseId": 1,
+        "releaseId": 0,
         "author" : "Auros",
         "group" : "Libraries",
         "installPath" : "BepInEx/plugins",
