@@ -57,7 +57,7 @@ namespace MonkeModManager
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["group"], current["dependencies"].AsArray);
+                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["group"], current["installPath"], current["dependencies"].AsArray);
                 UpdateReleaseInfo(ref release);
                 releases.Add(release);
             }
@@ -175,13 +175,27 @@ namespace MonkeModManager
                     string fileName = Path.GetFileName(release.Link);
                     if (Path.GetExtension(fileName).Equals(".dll"))
                     {
-                        var dir = Path.Combine(InstallDirectory, @"BepInEx\plugins", Regex.Replace(release.Name, @"\s+", string.Empty));
-                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                        string dir;
+                        if (release.InstallLocation == null)
+                        {
+                            dir = Path.Combine(InstallDirectory, @"BepInEx\plugins", Regex.Replace(release.Name, @"\s+", string.Empty));
+                            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                        }
+                        else
+                        {
+                            dir = Path.Combine(InstallDirectory, release.InstallLocation);
+                        }
                         File.WriteAllBytes(Path.Combine(dir, fileName), file);
+
+                        var dllFile = Path.Combine(InstallDirectory, @"BepInEx\plugins", fileName);
+                        if (File.Exists(dllFile))
+                        {
+                            File.Delete(dllFile);
+                        }
                     }
                     else
                     {
-                        UnzipFile(file, InstallDirectory);
+                        UnzipFile(file, (release.InstallLocation != null) ? Path.Combine(InstallDirectory, release.InstallLocation) : InstallDirectory);
                     }
                     UpdateStatus(string.Format("Installed {0}!", release.Name));
                 }
