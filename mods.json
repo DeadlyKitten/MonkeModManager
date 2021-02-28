@@ -30,6 +30,13 @@
          "gitPath" : "legoandmars/Utilla",
          "releaseId" : 0,
          "author" : "Bobbie"
-      } 
+      },
+      {
+         "name" : "Monke Mod Menu",
+         "tag" : "",
+         "gitPath" : "jeydevv/MonkeModMenu",
+         "releaseId" : 1,
+         "author" : "jeydevv"
+      }
    ]
 }
