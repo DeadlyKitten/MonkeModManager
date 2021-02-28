@@ -21,6 +21,7 @@ namespace MonkeModManager
         private const string BaseEndpoint = "https://api.github.com/repos/";
         private const Int16 CurrentVersion = 3;
         private List<ReleaseInfo> releases;
+        Dictionary<string, int> groups = new Dictionary<string, int>();
         private string InstallDirectory = @"";
         public bool isSteam = true;
         public bool platformDetected = false;
@@ -51,13 +52,27 @@ namespace MonkeModManager
             var decoded = JSON.Parse(File.ReadAllText("C:/Users/Steven/Desktop/testmods.json"));
 #endif
             var allMods = decoded["mods"].AsArray;
+            var allGroups = decoded["groups"].AsArray;
+
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["dependencies"].AsArray);
+                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["group"], current["dependencies"].AsArray);
                 UpdateReleaseInfo(ref release);
                 releases.Add(release);
             }
+
+
+            allGroups.Linq.OrderBy(x => x.Value["rank"]);
+            for (int i = 0; i < allGroups.Count; i++)
+            {
+                JSONNode current = allGroups[i];
+                if (releases.Any(x => x.Group == current["name"]))
+                {
+                    groups.Add(current["name"], groups.Count());
+                }
+            }
+            groups.Add("Uncategorized", groups.Count());
 
             foreach (ReleaseInfo release in releases)
             {
@@ -77,11 +92,21 @@ namespace MonkeModManager
             this.Invoke((MethodInvoker)(() =>
             {//Invoke so we can call from current thread
              //Update checkbox's text
+                Dictionary<string, int> includedGroups = new Dictionary<string, int>();
+
+                for (int i = 0; i < groups.Count(); i++)
+                {
+                    var key = groups.First(x => x.Value == i).Key;
+                    var value = listViewMods.Groups.Add(new ListViewGroup(key, HorizontalAlignment.Left));
+                    groups[key] = value;
+                }
+
                 foreach (ReleaseInfo release in releases)
                 {
                     ListViewItem item = new ListViewItem();
-                    item.Text = $"{release.Name} - {release.Version}";
-                    if (release.Tag != string.Empty) { item.Text = string.Format("{0} - ({1})",release.Name, release.Tag); };
+                    item.Text = release.Name;
+                    if (!String.IsNullOrEmpty(release.Version)) item.Text = $"{release.Name} - {release.Version}";
+                    if (!String.IsNullOrEmpty(release.Tag)) { item.Text = string.Format("{0} - ({1})",release.Name, release.Tag); };
                     item.SubItems.Add(release.Author);
                     item.Tag = release;
                     if (release.Install)
@@ -89,7 +114,23 @@ namespace MonkeModManager
                         listViewMods.Items.Add(item);
                     }
                     CheckDefaultMod(release, item);
+
+                    if (release.Group == null || !groups.ContainsKey(release.Group))
+                    {
+                        item.Group = listViewMods.Groups[groups["Uncategorized"]];
+                    }
+                    else if (groups.ContainsKey(release.Group))
+                    {
+                        int index = groups[release.Group];
+                        item.Group = listViewMods.Groups[index];
+                    }
+                    else
+                    {
+                        //int index = listViewMods.Groups.Add(new ListViewGroup(release.Group, HorizontalAlignment.Left));
+                        //item.Group = listViewMods.Groups[index];
+                    }
                 }
+
                 tabControlMain.Enabled = true;
                 buttonInstall.Enabled = true;
 

@@ -43,6 +43,10 @@
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Utilities = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonBepInEx = new System.Windows.Forms.Button();
+            this.buttonOpenConfig = new System.Windows.Forms.Button();
+            this.buttonOpenGameFolder = new System.Windows.Forms.Button();
             this.labelOpen = new System.Windows.Forms.Label();
             this.buttonRestoreCosmetics = new System.Windows.Forms.Button();
             this.buttonRestoreMods = new System.Windows.Forms.Button();
@@ -50,10 +54,6 @@
             this.buttonBackupMods = new System.Windows.Forms.Button();
             this.buttonUninstallAll = new System.Windows.Forms.Button();
             this.buttonModInfo = new System.Windows.Forms.Button();
-            this.buttonOpenGameFolder = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonOpenConfig = new System.Windows.Forms.Button();
-            this.buttonBepInEx = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.Plugins.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
@@ -199,6 +199,48 @@
             this.Utilities.Text = "Utilities";
             this.Utilities.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonBepInEx);
+            this.groupBox1.Controls.Add(this.buttonOpenConfig);
+            this.groupBox1.Controls.Add(this.buttonOpenGameFolder);
+            this.groupBox1.Controls.Add(this.labelOpen);
+            this.groupBox1.Location = new System.Drawing.Point(373, 43);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(146, 130);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            // 
+            // buttonBepInEx
+            // 
+            this.buttonBepInEx.Location = new System.Drawing.Point(6, 96);
+            this.buttonBepInEx.Name = "buttonBepInEx";
+            this.buttonBepInEx.Size = new System.Drawing.Size(134, 23);
+            this.buttonBepInEx.TabIndex = 5;
+            this.buttonBepInEx.Text = "BepInEx Folder";
+            this.buttonBepInEx.UseVisualStyleBackColor = true;
+            this.buttonBepInEx.Click += new System.EventHandler(this.buttonOpenBepInExFolder_Click);
+            // 
+            // buttonOpenConfig
+            // 
+            this.buttonOpenConfig.Location = new System.Drawing.Point(6, 67);
+            this.buttonOpenConfig.Name = "buttonOpenConfig";
+            this.buttonOpenConfig.Size = new System.Drawing.Size(134, 23);
+            this.buttonOpenConfig.TabIndex = 5;
+            this.buttonOpenConfig.Text = "Config Folder";
+            this.buttonOpenConfig.UseVisualStyleBackColor = true;
+            this.buttonOpenConfig.Click += new System.EventHandler(this.buttonOpenConfigFolder_Click);
+            // 
+            // buttonOpenGameFolder
+            // 
+            this.buttonOpenGameFolder.Location = new System.Drawing.Point(6, 38);
+            this.buttonOpenGameFolder.Name = "buttonOpenGameFolder";
+            this.buttonOpenGameFolder.Size = new System.Drawing.Size(134, 23);
+            this.buttonOpenGameFolder.TabIndex = 5;
+            this.buttonOpenGameFolder.Text = "Game Folder";
+            this.buttonOpenGameFolder.UseVisualStyleBackColor = true;
+            this.buttonOpenGameFolder.Click += new System.EventHandler(this.buttonOpenGameFolder_Click);
+            // 
             // labelOpen
             // 
             this.labelOpen.AutoSize = true;
@@ -269,48 +311,6 @@
             this.buttonModInfo.Text = "View Mod Info";
             this.buttonModInfo.UseVisualStyleBackColor = true;
             this.buttonModInfo.Click += new System.EventHandler(this.buttonModInfo_Click);
-            // 
-            // buttonOpenGameFolder
-            // 
-            this.buttonOpenGameFolder.Location = new System.Drawing.Point(6, 38);
-            this.buttonOpenGameFolder.Name = "buttonOpenGameFolder";
-            this.buttonOpenGameFolder.Size = new System.Drawing.Size(134, 23);
-            this.buttonOpenGameFolder.TabIndex = 5;
-            this.buttonOpenGameFolder.Text = "Game Folder";
-            this.buttonOpenGameFolder.UseVisualStyleBackColor = true;
-            this.buttonOpenGameFolder.Click += new System.EventHandler(this.buttonOpenGameFolder_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.buttonBepInEx);
-            this.groupBox1.Controls.Add(this.buttonOpenConfig);
-            this.groupBox1.Controls.Add(this.buttonOpenGameFolder);
-            this.groupBox1.Controls.Add(this.labelOpen);
-            this.groupBox1.Location = new System.Drawing.Point(373, 43);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(146, 130);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            // 
-            // buttonOpenConfig
-            // 
-            this.buttonOpenConfig.Location = new System.Drawing.Point(6, 67);
-            this.buttonOpenConfig.Name = "buttonOpenConfig";
-            this.buttonOpenConfig.Size = new System.Drawing.Size(134, 23);
-            this.buttonOpenConfig.TabIndex = 5;
-            this.buttonOpenConfig.Text = "Config Folder";
-            this.buttonOpenConfig.UseVisualStyleBackColor = true;
-            this.buttonOpenConfig.Click += new System.EventHandler(this.buttonOpenConfigFolder_Click);
-            // 
-            // buttonBepInEx
-            // 
-            this.buttonBepInEx.Location = new System.Drawing.Point(6, 96);
-            this.buttonBepInEx.Name = "buttonBepInEx";
-            this.buttonBepInEx.Size = new System.Drawing.Size(134, 23);
-            this.buttonBepInEx.TabIndex = 5;
-            this.buttonBepInEx.Text = "BepInEx Folder";
-            this.buttonBepInEx.UseVisualStyleBackColor = true;
-            this.buttonBepInEx.Click += new System.EventHandler(this.buttonOpenBepInExFolder_Click);
             // 
             // FormMain
             // 

@@ -14,17 +14,19 @@ namespace MonkeModManager.Internals
         public string Author;
         public string GitPath;
         public string Tag;
+        public string Group;
         public int ReleaseId;
         public bool Install = true;
         public List<string> Dependencies = new List<string>();
         public List<string> Dependents = new List<string>();
-        public ReleaseInfo(string _name, string _author, string _gitPath, int _releaseId, string _tag, JSONArray dependencies)
+        public ReleaseInfo(string _name, string _author, string _gitPath, int _releaseId, string _tag, string _group, JSONArray dependencies)
         {
             Name = _name;
             Author = _author;
             GitPath = _gitPath;
             ReleaseId = _releaseId;
             Tag = _tag;
+            Group = _group;
 
             if (dependencies == null) return;
             for (int i = 0; i < dependencies.Count; i++)
