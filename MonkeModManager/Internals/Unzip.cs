@@ -268,7 +268,7 @@ namespace MonkeModManager.Internals
         private Entry GetEntry(string fileName)
         {
             fileName = fileName.Replace("\\", "/").Trim().TrimStart('/');
-            var entry = Entries.FirstOrDefault(e => e.Name == fileName);
+            var entry = Entries.FirstOrDefault(e => e?.Name.Replace("\\", "/") == fileName);
 
             if (entry == null)
             {
