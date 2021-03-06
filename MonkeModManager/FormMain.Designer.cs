@@ -43,6 +43,7 @@
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Utilities = new System.Windows.Forms.TabPage();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOpenWiki = new System.Windows.Forms.Button();
             this.buttonDiscordLink = new System.Windows.Forms.Button();
@@ -57,7 +58,7 @@
             this.buttonBackupMods = new System.Windows.Forms.Button();
             this.buttonUninstallAll = new System.Windows.Forms.Button();
             this.buttonModInfo = new System.Windows.Forms.Button();
-            this.labelVersion = new System.Windows.Forms.Label();
+            this.buttonToggleMods = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.Plugins.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
@@ -208,6 +209,18 @@
             this.Utilities.Text = "Utilities";
             this.Utilities.UseVisualStyleBackColor = true;
             // 
+            // labelVersion
+            // 
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(188, 209);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(119, 13);
+            this.labelVersion.TabIndex = 11;
+            this.labelVersion.Text = "Monke Mod Manager";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.labelVersion.UseMnemonic = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -351,23 +364,24 @@
             this.buttonModInfo.UseVisualStyleBackColor = true;
             this.buttonModInfo.Click += new System.EventHandler(this.buttonModInfo_Click);
             // 
-            // labelVersion
+            // buttonToggleMods
             // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(188, 209);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(119, 13);
-            this.labelVersion.TabIndex = 11;
-            this.labelVersion.Text = "Monke Mod Manager";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.labelVersion.UseMnemonic = false;
+            this.buttonToggleMods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonToggleMods.Enabled = false;
+            this.buttonToggleMods.Location = new System.Drawing.Point(204, 341);
+            this.buttonToggleMods.Name = "buttonToggleMods";
+            this.buttonToggleMods.Size = new System.Drawing.Size(112, 23);
+            this.buttonToggleMods.TabIndex = 10;
+            this.buttonToggleMods.Text = "Disable Mods";
+            this.buttonToggleMods.UseVisualStyleBackColor = true;
+            this.buttonToggleMods.Click += new System.EventHandler(this.buttonToggleMods_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 376);
+            this.Controls.Add(this.buttonToggleMods);
             this.Controls.Add(this.buttonModInfo);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.labelStatus);
@@ -424,6 +438,7 @@
         private System.Windows.Forms.Button buttonDiscordLink;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Button buttonToggleMods;
     }
 }
 

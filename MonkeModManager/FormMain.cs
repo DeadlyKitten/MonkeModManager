@@ -23,6 +23,7 @@ namespace MonkeModManager
         private List<ReleaseInfo> releases;
         Dictionary<string, int> groups = new Dictionary<string, int>();
         private string InstallDirectory = @"";
+        private bool modsDisabled = false;
         public bool isSteam = true;
         public bool platformDetected = false;
 
@@ -38,6 +39,24 @@ namespace MonkeModManager
             releases = new List<ReleaseInfo>();
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelVersion.Text = "Monke Mod Manager v" + version.Substring(0, version.Length - 2);
+            if (!File.Exists(Path.Combine(InstallDirectory, "winhttp.dll")))
+            {
+                if (File.Exists(Path.Combine(InstallDirectory, "mods.disable")))
+                {
+                    buttonToggleMods.Text = "Enable Mods";
+                    modsDisabled = true;
+                    buttonToggleMods.BackColor = System.Drawing.Color.IndianRed;
+                    buttonToggleMods.Enabled = true;
+                }
+                else
+                {
+                    buttonToggleMods.Enabled = false;
+                }
+            }
+            else
+            {
+                buttonToggleMods.Enabled = true;
+            }
             new Thread(() =>
             {
                 LoadRequiredPlugins();
@@ -204,6 +223,11 @@ namespace MonkeModManager
             }
             UpdateStatus("Install complete!");
             ChangeInstallButtonState(true);
+
+            this.Invoke((MethodInvoker)(() =>
+            { //Invoke so we can call from any thread
+                buttonToggleMods.Enabled = true;
+            }));
         }
 
         #endregion // Installation
@@ -800,6 +824,31 @@ namespace MonkeModManager
 
         #endregion // RegHelper
 
+        private void buttonToggleMods_Click(object sender, EventArgs e)
+        {
+            if (modsDisabled)
+            {
+                if (File.Exists(Path.Combine(InstallDirectory, "mods.disable")))
+                {
+                    File.Move(Path.Combine(InstallDirectory, "mods.disable"), Path.Combine(InstallDirectory, "winhttp.dll"));
+                    buttonToggleMods.Text = "Disable Mods";
+                    buttonToggleMods.BackColor = System.Drawing.Color.Transparent;
+                    modsDisabled = false;
+                    UpdateStatus("Enabled mods!");
+                }
+            }
+            else
+            {
+                if (File.Exists(Path.Combine(InstallDirectory, "winhttp.dll")))
+                {
+                    File.Move(Path.Combine(InstallDirectory, "winhttp.dll"), Path.Combine(InstallDirectory, "mods.disable"));
+                    buttonToggleMods.Text = "Enable Mods";
+                    buttonToggleMods.BackColor = System.Drawing.Color.IndianRed;
+                    modsDisabled = true;
+                    UpdateStatus("Disabled mods!");
+                }
+            }
+        }
     }
 
 }
