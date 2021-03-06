@@ -14,7 +14,10 @@
          "gitPath" : "legoandmars/GorillaCosmetics",
          "releaseId" : 0,
          "author" : "Bobbie",
-         "group" : "Cosmetic"
+         "group" : "Cosmetic",
+         "dependencies" : [
+          "Newtonsoft.JSON"
+         ]
       },
       {
          "name" : "Space Monke",
@@ -66,7 +69,7 @@
         "name" : "Bepinject",
         "tag" : "",
         "gitPath" : "Auros/Bepinject",
-        "releaseId": 1,
+        "releaseId": 0,
         "author" : "Auros",
         "group" : "Libraries",
         "installPath" : "BepInEx/plugins",
