@@ -20,6 +20,38 @@
          ]
       },
       {
+       "name" : "Gorilla Tag Spectator",
+       "tag" : "",
+       "gitPath" : "gamer115671/Gorilla-Tag-Spectator",
+       "releaseId": 0,
+       "author" : "kfcgaming",
+       "group" : "Cosmetic"
+      },
+      {
+       "name" : "Rainbow Keyboard",
+       "tag" : "",
+       "gitPath" : "Ernest326/RainbowKeyboard",
+       "releaseId": 0,
+       "author" : "Ernest326",
+       "group" : "Cosmetic"
+      },
+      {
+       "name" : "Rainbow Monke",
+       "tag" : "",
+       "gitPath" : "Ernest326/RainbowMonke",
+       "releaseId": 0,
+       "author" : "Ernest326",
+       "group" : "Cosmetic"
+      },
+      {
+       "name" : "Smooth Monke",
+       "tag" : "",
+       "gitPath" : "auralius-dev/SmoothMonke",
+       "releaseId": 0,
+       "author" : "Auralius",
+       "group" : "Cosmetic"
+      },
+      {
          "name" : "Space Monke",
          "tag" : "",
          "gitPath" : "legoandmars/SpaceMonke",
@@ -29,14 +61,6 @@
          "dependencies" : [
            "Utilla"
           ]
-      },
-      {
-         "name" : "Utilla",
-         "tag" : "",
-         "gitPath" : "legoandmars/Utilla",
-         "releaseId" : 0,
-         "author" : "Bobbie",
-         "group" : "Libraries"
       },
       {
         "name" : "Super Monke",
@@ -53,7 +77,7 @@
         "releaseId": 1,
         "author" : "jeydevv",
         "group" : "Gameplay"
-      }
+      },
       {
         "name" : "Computer Interface",
         "tag" : "",
@@ -64,7 +88,7 @@
         "dependencies" : [
           "Bepinject"
         ]
-      }
+      },
       {
         "name" : "Bepinject",
         "tag" : "",
@@ -85,6 +109,14 @@
         "author" : "svermeulen",
         "group" : "Libraries",
         "installPath" : "BepInEx/plugins"
+      },
+      {
+         "name" : "Utilla",
+         "tag" : "",
+         "gitPath" : "legoandmars/Utilla",
+         "releaseId" : 0,
+         "author" : "Bobbie",
+         "group" : "Libraries"
       },
       {
          "name" : "Newtonsoft.JSON",
