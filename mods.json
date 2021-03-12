@@ -79,6 +79,14 @@
         "group" : "Gameplay"
       },
       {
+         "name" : "Utilla",
+         "tag" : "",
+         "gitPath" : "legoandmars/Utilla",
+         "releaseId" : 0,
+         "author" : "Bobbie",
+         "group" : "Libraries"
+      },
+      {
         "name" : "Computer Interface",
         "tag" : "",
         "gitPath" : "ToniMacaroni/ComputerInterface",
@@ -109,14 +117,6 @@
         "author" : "svermeulen",
         "group" : "Libraries",
         "installPath" : "BepInEx/plugins"
-      },
-      {
-         "name" : "Utilla",
-         "tag" : "",
-         "gitPath" : "legoandmars/Utilla",
-         "releaseId" : 0,
-         "author" : "Bobbie",
-         "group" : "Libraries"
       },
       {
          "name" : "Newtonsoft.JSON",
