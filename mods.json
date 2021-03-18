@@ -9,17 +9,6 @@
          "group" : "Core"
       },
       {
-         "name" : "Gorilla Cosmetics",
-         "tag" : "",
-         "gitPath" : "legoandmars/GorillaCosmetics",
-         "releaseId" : 0,
-         "author" : "Bobbie",
-         "group" : "Cosmetic",
-         "dependencies" : [
-          "Newtonsoft.JSON"
-         ]
-      },
-      {
          "name" : "Space Monke",
          "tag" : "",
          "gitPath" : "legoandmars/SpaceMonke",
