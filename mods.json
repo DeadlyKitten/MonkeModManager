@@ -20,6 +20,19 @@
          ]
       },
       {
+         "name" : "Monke Map Loader",
+         "tag" : "",
+         "gitPath" : "Vadix88/MonkeMapLoader",
+         "releaseId" : 0,
+         "author" : "Vadix",
+         "group" : "Gameplay",
+         "dependencies" : [
+          "Newtonsoft.JSON",
+          "Utilla",
+          "Computer Interface"
+         ]
+      },
+      {
          "name" : "Space Monke",
          "tag" : "",
          "gitPath" : "legoandmars/SpaceMonke",
