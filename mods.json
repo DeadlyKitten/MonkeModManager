@@ -4,7 +4,7 @@
          "name" : "BepInEx",
          "tag" : "",
          "gitPath" : "BepInEx/BepInEx",
-         "releaseId" : 1,
+         "releaseId" : 2,
          "author" : "BepInEx Team",
          "group" : "Core"
       },
