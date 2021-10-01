@@ -52,14 +52,6 @@
          "group" : "Libraries"
       },
       {
-        "name" : "Monke Mod Menu",
-        "tag" : "",
-        "gitPath" : "jeydevv/MonkeModMenu",
-        "releaseId": 0,
-        "author" : "jeydevv",
-        "group" : "Gameplay"
-      }
-      {
         "name" : "Computer Interface",
         "tag" : "",
         "gitPath" : "ToniMacaroni/ComputerInterface",
@@ -69,7 +61,7 @@
         "dependencies" : [
           "Bepinject"
         ]
-      }
+      },
       {
         "name" : "Bepinject",
         "tag" : "",
