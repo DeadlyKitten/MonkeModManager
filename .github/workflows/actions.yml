@@ -1,0 +1,43 @@
+name: .NET Build
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup msbuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Install dependencies
+      run: msbuild -t:restore
+    - name: Build project
+      run: msbuild MonkeModManager/MonkeModManager.csproj /t:Build /p:Configuration=Release
+    - name: Cleanup release
+      shell: bash
+      run: |
+        find "MonkeModManager/bin/Release" -type f ! -name "MonkeModManager.exe" -delete
+        cp "LICENSE" "MonkeModManager/bin/Release/LICENSE.MonkeModManager.txt"
+    - name: Upload Build
+      if: startsWith(github.ref, 'refs/tags/') == false
+      uses: actions/upload-artifact@v2
+      with:
+        name: MonkeModManager-${{ github.sha }}
+        path: ./MonkeModManager/bin/Release/
+    - name: Extract Release Version
+      if: startsWith(github.ref, 'refs/tags/')
+      id: get_version
+      shell: bash
+      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
+    - name: Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: Monke Mod Manager ${{ steps.get_version.outputs.version }}
+        files: ./MonkeModManager/bin/Release/MonkeModManager.exe
