@@ -68,18 +68,19 @@ namespace MonkeModManager
         private void LoadReleases()
         {
 #if !DEBUG
-            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/mods.json"));
+            var decodedMods = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModInfo/master/modinfo.json"));
+            var decodedGroups = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModInfo/master/groupinfo.json"));
 #else
             var decoded = JSON.Parse(File.ReadAllText("C:/Users/Steven/Desktop/testmods.json"));
 #endif
-            var allMods = decoded["mods"].AsArray;
-            var allGroups = decoded["groups"].AsArray;
+            var allMods = decodedMods.AsArray;
+            var allGroups = decodedGroups.AsArray;
 
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["group"], current["installPath"], current["dependencies"].AsArray);
-                UpdateReleaseInfo(ref release);
+                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["version"], current["group"], current["download_url"], current["install_location"], current["dependencies"].AsArray);
+                //UpdateReleaseInfo(ref release);
                 releases.Add(release);
             }
 
@@ -705,7 +706,7 @@ namespace MonkeModManager
 
 #endregion // Helpers
 
-        #region Registry
+#region Registry
 
         private void LocationHandler()
         {
@@ -754,7 +755,7 @@ namespace MonkeModManager
         }
 #endregion // Registry
 
-        #region RegHelper
+#region RegHelper
         enum RegSAM
         {
             QueryValue = 0x0001,
@@ -822,7 +823,7 @@ namespace MonkeModManager
             }
         }
 
-        #endregion // RegHelper
+#endregion // RegHelper
 
         private void buttonToggleMods_Click(object sender, EventArgs e)
         {
