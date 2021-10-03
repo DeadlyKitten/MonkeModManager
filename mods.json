@@ -20,6 +20,19 @@
          ]
       },
       {
+         "name" : "Monke Map Loader",
+         "tag" : "",
+         "gitPath" : "Vadix88/MonkeMapLoader",
+         "releaseId" : 0,
+         "author" : "Vadix",
+         "group" : "Gameplay",
+         "dependencies" : [
+          "Newtonsoft.JSON",
+          "Utilla",
+          "Computer Interface"
+         ]
+      },
+      {
          "name" : "Space Monke",
          "tag" : "",
          "gitPath" : "legoandmars/SpaceMonke",
@@ -39,22 +52,6 @@
          "group" : "Libraries"
       },
       {
-        "name" : "Super Monke",
-        "tag" : "",
-        "gitPath" : "jeydevv/Super-Monke",
-        "releaseId": 1,
-        "author" : "jeydevv",
-        "group" : "Gameplay"
-      },
-      {
-        "name" : "Monke Mod Menu",
-        "tag" : "",
-        "gitPath" : "jeydevv/MonkeModMenu",
-        "releaseId": 0,
-        "author" : "jeydevv",
-        "group" : "Gameplay"
-      }
-      {
         "name" : "Computer Interface",
         "tag" : "",
         "gitPath" : "ToniMacaroni/ComputerInterface",
@@ -64,7 +61,7 @@
         "dependencies" : [
           "Bepinject"
         ]
-      }
+      },
       {
         "name" : "Bepinject",
         "tag" : "",
