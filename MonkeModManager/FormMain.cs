@@ -565,7 +565,7 @@ namespace MonkeModManager
 
         private void buttonDiscordLink_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/ux4ZbBC6JQ");
+            Process.Start("https://discord.gg/monkemod");
         }
 
         #endregion // UIEvents
